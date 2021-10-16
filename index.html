@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vue</title>
+    <script src="https://unpkg.com/vue@3.0.2"></script>
+
+    <style>
+        .box{
+            padding:100px 0;
+            width:400px;
+            text-align:center;
+            background:rgb(160, 141, 141);
+            margin:20px;
+            display:inline-block;
+        }
+        body{
+            background: rgb(236, 226, 226);
+            max-width:960px;
+            margin:20px auto;
+        }
+        p,h3,ul{
+            margin:0;
+            padding:0;
+        }
+        li{
+            list-style-type: none;
+            background: rgb(240, 234, 234);
+            margin:20px auto;
+            padding:10px 20px;
+            border-radius: 10px;
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        li.fav{
+            background:rgb(94, 57, 83);
+            color:#fff
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1>Hello !!</h1>
+
+
+    <!-- linking app to html -->
+    <div id="app">
+
+        
+        <!-- v-bind for getting dynamic data ,
+            can also be used just with : -->
+        <a :href = "url">You tube</a>
+        <!-- conditional -->
+        <div v-if="showBooks">
+            <!-- interpolation in p tag-->
+            <p>{{title}} - {{author}} - {{age}}</p>
+
+            <!-- you can use v-on or @ for triggering event -->
+            <button v-on:click="age++">Increase age </button>
+            <button v-on:click="age--">Decrease age </button>
+
+            <!-- passing parameter in method -->
+            <div @click="changeTitle('Harry Potter')">change </div>
+             
+            <!-- use filteredBoooks just to show the books with isFav as true -->
+       <ul>
+           <li  v-for="book in books" :class="{fav:book.isFav}" @click ="togglelistEvents(book)">
+               <img :src ="book.img" :alt="book.title" width="200" height="200">
+                <h3>{{book.title}}</h3>
+                <p>{{book.author}}</p>
+           </li>
+       </ul>
+
+    </div>
+        
+        <button @click ="toggleShowBooks">
+            <span v-if="showBooks">Hide Books</span>
+            <span v-else>Show Books</span>
+        </button>
+
+        
+        
+        <!-- tHIS COMES FROM THE CSS v-show  
+        whereas v-if  is for DOM changing elements 
+        Compared to v-if and v-show if u want to change
+         the content frequently use v-show in apage -->
+        <div v-show="showBooks">This is using show books</div>
+
+        
+
+        <br>
+
+        <!-- mouse events -->
+        <!-- to hold parameters for example if the event which 
+        is predefined in mouseEVENTS with that is u want to 
+        pass parametr make sure u use $ -->
+        <div class="box" @mouseover="handleEvents($event,5)">mouseover</div>
+        <div class="box" @mouseleave="handleEvents">mouseleave</div>
+        <div class="box" @dblclick="handleEvents">double click</div>
+        <div class="box" @mousemove="handleMouseMove">position - {{x}} {{y}}</div>
+
+    </div>
+       
+    <script src = "app.js"></script>
+    
+</body>
+</html>
